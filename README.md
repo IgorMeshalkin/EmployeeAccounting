@@ -5,5 +5,20 @@
 Заработная плата работника зависит от его должности. <br>
 В разных отделах могут работать сотрудники в одной и той же должности. <br>
 В одном отделе может быть только один начальник. <br>
+<br>
+У приложения есть графический пользовательский интерфейс:
 
-![1](https://user-images.githubusercontent.com/97287038/185836284-f76f5968-9828-470c-befd-6bfb5bc32ea9.jpg)
+![1](https://user-images.githubusercontent.com/97287038/185836284-f76f5968-9828-470c-befd-6bfb5bc32ea9.jpg)<br>
+![2](https://user-images.githubusercontent.com/97287038/185836720-69f60c60-dd17-43a0-bd1c-c410b4a0b917.jpg)<br>
+![3](https://user-images.githubusercontent.com/97287038/185836753-15179b55-1fee-4311-b1a6-782fded2a158.jpg)
+<br>
+<br>
+Технологии:
+----------------------------------------------
+Java 8, Maven, FirebirdSQL, Swing.
+
+База данных:
+----------------------------------------------
+Вы можете загрузить файл с базой данных для того что бы протестировать приложение:
+[EA_DB.zip](https://github.com/IgorMeshalkin/EmployeeAccounting/files/9391164/EA_DB.zip)
+
