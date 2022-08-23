@@ -34,27 +34,42 @@ public class MainView extends JFrame {
     class EmployeesButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            setVisible(false);
-            EmployeeView employeeView = new EmployeeView();
-            employeeView.setVisible(true);
+            try {
+                setVisible(false);
+                EmployeeView employeeView = new EmployeeView();
+                employeeView.setVisible(true);
+            } catch (ExceptionInInitializerError exp) {
+                JOptionPane.showMessageDialog(null, "Источник данных не найден \nПриложение будет остановлено");
+                System.exit(1);
+            }
         }
     }
 
     class DepartmentsButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            setVisible(false);
-            DepartmentView departmentsView = new DepartmentView();
-            departmentsView.setVisible(true);
+            try {
+                setVisible(false);
+                DepartmentView departmentsView = new DepartmentView();
+                departmentsView.setVisible(true);
+            } catch (ExceptionInInitializerError exp) {
+                JOptionPane.showMessageDialog(null, "Источник данных не найден \nПриложение будет остановлено");
+                System.exit(1);
+            }
         }
     }
 
     class PostsButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            setVisible(false);
-            PostView postView = new PostView();
-            postView.setVisible(true);
+            try {
+                setVisible(false);
+                PostView postView = new PostView();
+                postView.setVisible(true);
+            } catch (ExceptionInInitializerError exp) {
+                JOptionPane.showMessageDialog(null, "Источник данных не найден \nПриложение будет остановлено");
+                System.exit(1);
+            }
         }
     }
 

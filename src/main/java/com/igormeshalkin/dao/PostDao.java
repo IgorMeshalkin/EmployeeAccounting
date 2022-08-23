@@ -13,8 +13,7 @@ public class PostDao implements EmployeeAccountingDao<Post> {
     @Override
     public List<Post> findAll() {
         List<Post> result = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM POSTS ORDER BY POST_ID");
 
             while (resultSet.next()) {
@@ -31,9 +30,8 @@ public class PostDao implements EmployeeAccountingDao<Post> {
     @Override
     public Post findById(Long id) {
         Post post = null;
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM POSTS WHERE POST_ID=?");
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement("SELECT * FROM POSTS WHERE POST_ID=?")) {
 
             preparedStatement.setLong(1, id);
 
@@ -49,9 +47,8 @@ public class PostDao implements EmployeeAccountingDao<Post> {
 
     public Post findByName(String name) {
         Post post = null;
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM POSTS WHERE POST_NAME=?");
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement("SELECT * FROM POSTS WHERE POST_NAME=?")) {
 
             preparedStatement.setString(1, name);
 
@@ -67,9 +64,8 @@ public class PostDao implements EmployeeAccountingDao<Post> {
 
     @Override
     public void save(Post post) {
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("INSERT INTO POSTS (POST_NAME, SALARY) VALUES(?, ?)");
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement("INSERT INTO POSTS (POST_NAME, SALARY) VALUES(?, ?)")) {
 
             preparedStatement.setString(1, post.getName());
             preparedStatement.setDouble(2, post.getSalary());
@@ -83,9 +79,8 @@ public class PostDao implements EmployeeAccountingDao<Post> {
 
     @Override
     public void update(Post post) {
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("UPDATE POSTS SET POST_NAME=?, SALARY=? WHERE POST_ID=?");
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement("UPDATE POSTS SET POST_NAME=?, SALARY=? WHERE POST_ID=?")) {
 
             preparedStatement.setString(1, post.getName());
             preparedStatement.setDouble(2, post.getSalary());
@@ -100,8 +95,7 @@ public class PostDao implements EmployeeAccountingDao<Post> {
 
     @Override
     public void delete(Long id) {
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM POSTS WHERE POST_ID=?");
+        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM POSTS WHERE POST_ID=?")) {
 
             preparedStatement.setLong(1, id);
 

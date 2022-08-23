@@ -95,7 +95,7 @@ public class PostFormView extends JFrame {
             if (post.isNew()) {
                 postDao.save(post);
             } else {
-                if (post.getId() == BossPostUtil.BOSS_POST_ID && !post.getName().equals(BossPostUtil.BOSS_POST_NAME)) {
+                if (post.getId().equals(BossPostUtil.BOSS_POST_ID) && !post.getName().equals(BossPostUtil.BOSS_POST_NAME)) {
                     post.setName(BossPostUtil.BOSS_POST_NAME);
                     JOptionPane.showMessageDialog(null, "Эту должность нельзя переименовать");
                 }

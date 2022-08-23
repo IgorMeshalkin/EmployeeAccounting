@@ -16,8 +16,7 @@ public class EmployeeDao implements EmployeeAccountingDao<Employee> {
     @Override
     public List<Employee> findAll() {
         List<Employee> result = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM EMPLOYEES LEFT JOIN DEPARTMENTS ON EMPLOYEES.DEPARTMENT = DEPARTMENTS.DEP_ID LEFT JOIN POSTS ON EMPLOYEES.POST = POSTS.POST_ID ORDER BY EMP_ID");
 
             while (resultSet.next()) {
@@ -34,9 +33,8 @@ public class EmployeeDao implements EmployeeAccountingDao<Employee> {
     @Override
     public Employee findById(Long id) {
         Employee employee = null;
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM EMPLOYEES LEFT JOIN DEPARTMENTS ON EMPLOYEES.DEPARTMENT = DEPARTMENTS.DEP_ID LEFT JOIN POSTS ON EMPLOYEES.POST = POSTS.POST_ID WHERE EMPLOYEES.EMP_ID=?");
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement("SELECT * FROM EMPLOYEES LEFT JOIN DEPARTMENTS ON EMPLOYEES.DEPARTMENT = DEPARTMENTS.DEP_ID LEFT JOIN POSTS ON EMPLOYEES.POST = POSTS.POST_ID WHERE EMPLOYEES.EMP_ID=?")) {
 
             preparedStatement.setLong(1, id);
 
@@ -54,9 +52,8 @@ public class EmployeeDao implements EmployeeAccountingDao<Employee> {
 
     @Override
     public void save(Employee employee) {
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("INSERT INTO EMPLOYEES (FIRST_NAME, LAST_NAME, DEPARTMENT, POST) VALUES(?, ?, ?, ?)");
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement("INSERT INTO EMPLOYEES (FIRST_NAME, LAST_NAME, DEPARTMENT, POST) VALUES(?, ?, ?, ?)")) {
 
             preparedStatement.setString(1, employee.getFirstName());
             preparedStatement.setString(2, employee.getLastName());
@@ -72,9 +69,8 @@ public class EmployeeDao implements EmployeeAccountingDao<Employee> {
 
     @Override
     public void update(Employee employee) {
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("UPDATE EMPLOYEES SET FIRST_NAME=?, LAST_NAME=?, DEPARTMENT=?, POST=?  WHERE EMP_ID=?");
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement("UPDATE EMPLOYEES SET FIRST_NAME=?, LAST_NAME=?, DEPARTMENT=?, POST=?  WHERE EMP_ID=?")) {
 
             preparedStatement.setString(1, employee.getFirstName());
             preparedStatement.setString(2, employee.getLastName());
@@ -91,8 +87,7 @@ public class EmployeeDao implements EmployeeAccountingDao<Employee> {
 
     @Override
     public void delete(Long id) {
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM EMPLOYEES WHERE EMP_ID=?");
+        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM EMPLOYEES WHERE EMP_ID=?")) {
 
             preparedStatement.setLong(1, id);
 
@@ -106,9 +101,8 @@ public class EmployeeDao implements EmployeeAccountingDao<Employee> {
     public String getDepartmentBossName(Long department_id) {
         String firstName = null;
         String lastName = null;
-        try {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT FIRST_NAME, LAST_NAME FROM EMPLOYEES LEFT JOIN DEPARTMENTS ON EMPLOYEES.DEPARTMENT = DEPARTMENTS.DEP_ID LEFT JOIN POSTS ON EMPLOYEES.POST = POSTS.POST_ID WHERE DEP_ID=? AND POST_ID=?");
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement("SELECT FIRST_NAME, LAST_NAME FROM EMPLOYEES LEFT JOIN DEPARTMENTS ON EMPLOYEES.DEPARTMENT = DEPARTMENTS.DEP_ID LEFT JOIN POSTS ON EMPLOYEES.POST = POSTS.POST_ID WHERE DEP_ID=? AND POST_ID=?")) {
 
             preparedStatement.setLong(1, department_id);
             preparedStatement.setLong(2, BossPostUtil.BOSS_POST_ID);
